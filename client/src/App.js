@@ -1,10 +1,7 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom';
 import AdminLogin from './AdminLogin';
 import Home from './Home';
-import CreatePost from './components/CreatePost';
-
-
-
+import AdminAuth from './adminauth';
 
 function App() {
   return (
@@ -12,7 +9,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/admin' element={<AdminLogin/>}/>
-        <Route path='/create' element={<CreatePost/>}/>
+        <Route path='/create' element={<AdminAuth/>}/>
       </Routes>
     </BrowserRouter>
   );

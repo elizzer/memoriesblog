@@ -14,6 +14,9 @@ const postSchema = mongoose.Schema({
         default:0,
     },
     tags:[String],
+    photoName:{
+        type:String,
+    }
 
     
 

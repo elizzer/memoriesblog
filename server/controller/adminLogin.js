@@ -9,7 +9,7 @@ export function login(req,res){
         else{
             if(data.name==req.body.name&& data.password==req.body.password){
                 console.log('[+]admin login success')
-                const token=JWT.sign({_id:data._id},process.env.SECRET_KEY,{expiresIn:'10s'});
+                const token=JWT.sign({_id:data._id},process.env.SECRET_KEY,{expiresIn:'1h'});
                 res.cookie('token',token);
                 return res.json({msg:"Admin login success",token})
             }
