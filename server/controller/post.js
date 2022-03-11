@@ -4,7 +4,6 @@ import path from 'path';
 import {v4} from 'uuid';
 
 var photoName;
-createPhotoLocation();
 
 export function createPost(req,res){
 
@@ -29,8 +28,7 @@ export function createPost(req,res){
 
 export function createPhotoLocation(){
     photoName=v4()+'-'+Date.now()+'.png';
-    console.log(photoName)
-    
+    return photoName;
 }
 
 const storageEngine = multer.diskStorage({
@@ -38,7 +36,7 @@ const storageEngine = multer.diskStorage({
     filename:function (req,file,cb){
         cb(
         null,
-        photoName
+        createPhotoLocation()
       )
     }
 })
@@ -66,4 +64,10 @@ export function getAllPost(req,res){
     })
 }
 
+export function byPhotoName(req,res,next,photoName){
 
+    req.photoName=photoName;
+    console.log('[+]log from photo request',req.photoName)
+    next();
+
+}

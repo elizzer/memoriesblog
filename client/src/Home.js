@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { POST_API } from "./API";
+import Posts from './components/posts.js'
 
 export default function Home(){
 
@@ -22,9 +23,7 @@ export default function Home(){
     return(
         <div>
             <h1>Home page</h1>
-            <div>{post.map((e)=>{
-                return e.title
-            })}</div>
+           <Posts posts={post} />
         </div>
     );
 }
