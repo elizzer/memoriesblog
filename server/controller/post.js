@@ -82,14 +82,37 @@ export function getPopularPost(req,res){
         res.json(data);
     })
 }
+
 export function byPostId(req,res,next,id){
-
     postModal.findById(id).exec((err,data)=>{
-        if(err||!data){
-            return res.status(400).json({err:'No such post found'})
-        }
-
-        res.json(data);
+        if(err||!data)
+            return res.json({msg:"Post not found"});
+        
+        req.post=data;
+        console.log(req.post)
+        next();
     })
+}
 
+export function postById(req,res){
+        console.log('[+]parameter data',req.post)
+        res.json(req.post);
+}
+
+export function deletePost(req,res){
+    postModal.deleteOne({_id:req.post.id},(err,data)=>{
+        if(err||!data){
+            return res.json({err:"post not found"})
+        }
+        res.json({code:true,msg:'Post deleted'})
+    })
+}
+
+export function like(req,res){
+    postModal.findByIdAndUpdate(req.post._id,{likeCount:req.post.likeCount+1},{new:true},(err,data)=>{
+        if(err||!data){
+            return res.json({err:'cant like this post'})
+        }
+        res.json({msg:'updated'})
+    })
 }

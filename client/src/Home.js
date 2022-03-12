@@ -5,7 +5,7 @@ import { LandingImageSlider } from "./components/LandingImageSlider";
 import PopularPost from "./components/PopularPost";
 import RecentPost from "./components/RecentPost";
 
-export default function Home(){
+export default function Home({isAdmin}){
 
     const [post, setPost]=useState([]);
     const [popPost,setPopPost]=useState([]);
@@ -30,12 +30,10 @@ export default function Home(){
 
 
     console.log('[+]All post',post)
-    // const popPost=post.slice(0,4);
     return(
         <div>
-           
             <LandingImageSlider/>
-            <Container fluid>
+            <Container >
                 <PopularPost posts={popPost}/>
                 <RecentPost posts={post}/>
             </Container>

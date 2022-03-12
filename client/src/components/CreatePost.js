@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {POST_API} from '../API';
-import {Modal,Button} from 'react-bootstrap';
+import {Modal,Button,Form,Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 export default function CreatePost(){
@@ -70,14 +70,35 @@ export default function CreatePost(){
                 </Modal.Footer>
             </Modal>
             <h1>Create post</h1>
-            <form>
-                <input name='title' onChange={changeHandler} placeholder="title" value={postData.title} type={"text"}/>
-                <input name='tags' onChange={changeHandler} placeholder="tags" value={postData.tags} type={"text"}/>
-                <textarea name='message' onChange={changeHandler} placeholder="message" value={postData.message} type={"text"}/>
-                <input onChange={photoHandler} type='file'></input>
-                <button onClick={submitHandler}>Submit</button>
+           
+            <Container>
 
-            </form>
+            <Form>
+                <Form.Group className="mb-3" controlId="title">
+                    <Form.Label>Title</Form.Label>
+                    <Form.Control type="text" name='title' onChange={changeHandler} placeholder="title" value={postData.title} placeholder="Title for the post" />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="tags">
+                    <Form.Label>Tags</Form.Label>
+                    <Form.Control type="text" name='tags' onChange={changeHandler} placeholder="tags" value={postData.tags} placeholder="tags" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="tags">
+                    <Form.Label>Message</Form.Label>
+                    <Form.Control name='message' onChange={changeHandler} placeholder="message" value={postData.message} as='textarea' rows='10' placeholder="Give you message about the blog" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="tags">
+                    <Form.Label>photo</Form.Label>
+                    <Form.Control onChange={photoHandler} type='file' />
+                </Form.Group>
+                <Button onClick={submitHandler} variant="primary" type="submit">
+                    Submit
+                </Button>
+                <Button onClick={toHome} className='ms-2' variant="outlined-primary" type="submit">
+                    Home
+                </Button>
+            </Form>
+            </Container>
         </div>
     );
 }
