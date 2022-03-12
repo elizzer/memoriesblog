@@ -1,0 +1,15 @@
+.gridPost{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    grid-template-rows: repeat(auto-fit,minmax(500px,1fr));
+}
+
+.post-img{
+    width: 100%;
+    height: 45vh;
+    background-color: blue;
+}
+
+.post-img img{
+    object-fit: cover;
+}

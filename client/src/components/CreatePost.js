@@ -1,16 +1,22 @@
 import { useState } from "react";
 import {POST_API} from '../API';
-
+import {Modal,Button} from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost(){
     
-   
+   const navigate= useNavigate()
   
     const [postData,setPostData]=useState({
         title:'',
         message:'',
         tags:'',
         photo:null
+    })
+
+    const [save,setSave]=useState({
+        show:false,
+        msg:''
     })
 
     function changeHandler(e){
@@ -39,11 +45,30 @@ export default function CreatePost(){
                 Accept:'Application/json'
             },
             body:form
+        }).then(res=>res.json()).then(res=>{
+            if(res.code){
+                setSave({show:true,msg:res.msg})
+            }
         })
+    }
+
+    function modalClosehandler(){
+        setSave({show:false,msg:''})
+    }
+
+    function toHome(){
+        navigate('/')
     }
 
     return(
         <div>
+            <Modal show={save.show} onHide={modalClosehandler} centered >
+                <Modal.Header closeButton></Modal.Header>
+                <Modal.Body>{save.msg}</Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={toHome} >Go to home</Button>
+                </Modal.Footer>
+            </Modal>
             <h1>Create post</h1>
             <form>
                 <input name='title' onChange={changeHandler} placeholder="title" value={postData.title} type={"text"}/>

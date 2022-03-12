@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ADMIN_API, POST_API } from "./API";
 import {useNavigate} from 'react-router-dom';
+import { Button } from "react-bootstrap";
 
 export default function AdminLogin(){
 
@@ -30,13 +31,18 @@ export default function AdminLogin(){
         })
     }
 
+    function toHome(){
+        navigate('/')
+    }
+
     return(
         <div>
             <h1>Admin login</h1>
             <form>
                 <input id='name' name='name' placeholder="name" value={logdet.name} onChange={changeHandler} type={"text"}/>
                 <input id='Password' placeholder="name" name='password' value={logdet.password} onChange={changeHandler} type={"text"}/>
-                <button onClick={submitHandler}>Submit</button>
+                <Button onClick={submitHandler}>Submit</Button>
+                <Button onClick={toHome}>Go to home</Button>
             </form>
         </div>
     );

@@ -1,20 +1,17 @@
+import { Col, Container } from "react-bootstrap";
 import { POST_API } from "../API";
-
+import Post from "./Post";
+import './style.css'
 export default function posts({posts}){
     return(
-        <>
-            <div>
-                {posts.map(e=>{
+        <Container fluid >
+            <Col className="gridPost" >
+                {posts.map(post=>{
                     return (
-                        <div>
-                            <h1>{e.title}</h1>
-                            <h5>{e.tags.map(e=>"#"+e)}</h5>
-                            <p>{e.message}</p>
-                            <img style={{width:'50%',height:'50%'}} src={POST_API+'/photo/'+e.photoName}></img>
-                        </div>
+                       <Post post={post}/>
                     );
                 })}
-            </div>
-        </>
+            </Col>
+        </Container>
     );
 }

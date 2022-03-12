@@ -19,7 +19,7 @@ export function createPost(req,res){
            return res.status(400).json({err:'unable to save the post'})
         }
         
-        res.json(post);
+        res.json({code:1,msg:"post Saved and published successfully"});
 
     })
 }
@@ -69,5 +69,27 @@ export function byPhotoName(req,res,next,photoName){
     req.photoName=photoName;
     console.log('[+]log from photo request',req.photoName)
     next();
+
+}
+
+
+export function getPopularPost(req,res){
+    postModal.find().sort([['likeCount','desc']]).limit(4).exec((err,data)=>{
+        if(err||!data){
+            return res.json({error:"No post fetched"})
+        }
+
+        res.json(data);
+    })
+}
+export function byPostId(req,res,next,id){
+
+    postModal.findById(id).exec((err,data)=>{
+        if(err||!data){
+            return res.status(400).json({err:'No such post found'})
+        }
+
+        res.json(data);
+    })
 
 }
