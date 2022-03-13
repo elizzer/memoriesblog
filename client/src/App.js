@@ -33,10 +33,7 @@ function App() {
 
   return (
     <BrowserRouter>
-            <Container>
-                <h1 className="text-center mt-3">MAYYA</h1>
-                <hr/>
-            </Container>
+            
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/admin' element={<AdminLogin/>}/>

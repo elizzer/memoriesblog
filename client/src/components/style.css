@@ -2,6 +2,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(300px,600px));
     grid-template-rows: repeat(auto-fit,minmax(500px,1fr));
+    justify-content: center;
+}  
+
+.pop-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(100px,300px));
+    grid-template-rows: repeat(auto-fit,minmax(500px,1fr));
+    justify-content: center;
+
 }
 
 .post-img{
@@ -10,7 +19,7 @@
     background-color: grey;
 }
 
-.post-img img{
+.post-img {
     object-fit: cover;
     display: block;
 }

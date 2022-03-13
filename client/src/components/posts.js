@@ -2,13 +2,13 @@ import { Col, Container } from "react-bootstrap";
 import { POST_API } from "../API";
 import Post from "./Post";
 import './style.css'
-export default function posts({posts}){
+export default function posts({posts,wl,className}){
     return(
         <Container fluid >
-            <Col className="gridPost" >
-                {posts.map(post=>{
+            <Col className={className} >
+                {posts.map((post,i)=>{
                     return (
-                       <Post post={post}/>
+                       <Post key={i} post={post} wl={wl}/>
                     );
                 })}
             </Col>

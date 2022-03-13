@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ADMIN_API, POST_API } from "./API";
 import {useNavigate} from 'react-router-dom';
-import { Button } from "react-bootstrap";
+import { Button,Container,Form,Card } from "react-bootstrap";
 
 export default function AdminLogin(){
 
@@ -36,14 +36,27 @@ export default function AdminLogin(){
     }
 
     return(
-        <div>
-            <h1>Admin login</h1>
-            <form>
-                <input id='name' name='name' placeholder="name" value={logdet.name} onChange={changeHandler} type={"text"}/>
-                <input id='Password' placeholder="name" name='password' value={logdet.password} onChange={changeHandler} type={"text"}/>
-                <Button onClick={submitHandler}>Submit</Button>
-                <Button onClick={toHome}>Go to home</Button>
-            </form>
-        </div>
+        <Container className="d-flex flex-column align-items-center justify-content-center" style={{height:'100vh'}} >
+            <Card className="p-5">
+                <Card.Header className="m-3">
+                    <h1 className="text-center p-1">Admin login</h1>
+                </Card.Header>
+                <Form onSubmit={submitHandler}>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>User Name</Form.Label>
+                        <Form.Control onChange={changeHandler} value={logdet.name} name='name' placeholder="Enter User Name" />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control onChange={changeHandler} type="password" name='password' value={logdet.password}  placeholder="Admin Password" />
+                    </Form.Group>
+                    <div  >
+                        <Button variant="primary" type="submit">Submit</Button>
+                        <Button className="ms-4" onClick={toHome} variant="outline-primary" >Home</Button>
+                    </div>
+                </Form>
+            </Card>
+            </Container>
     );
 }

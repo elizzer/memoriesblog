@@ -50,6 +50,14 @@ export default function CreatePost(){
                 setSave({show:true,msg:res.msg})
             }
         })
+
+        setPostData({
+            title:'',
+            message:'',
+            tags:'',
+            photo:null
+        })
+
     }
 
     function modalClosehandler(){

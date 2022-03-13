@@ -8,8 +8,10 @@ export default function ReadPost({isAdmin}){
 
     const param=useParams();
     const navigate=useNavigate();
-    const [post,setPost]=useState({});
+    const [post,setPost]=useState({message:[]});
+    
     useEffect(()=>{
+        console.log('[+]use effect')
         fetch(`${POST_API}/${param.postId}`,{
             method:"GET",
         }).then(res=>res.json()).then(res=>{
@@ -20,6 +22,7 @@ export default function ReadPost({isAdmin}){
 
     },[])
 
+    
 
     function deletePost(){
         fetch(POST_API+'/'+param.postId,{
@@ -32,9 +35,9 @@ export default function ReadPost({isAdmin}){
     }
 
     function likePost(){
-        fetch(POST_API+'/like'+param.postId,{
+        fetch(POST_API+'/like/'+param.postId,{
             method:'GET'
-        }).then(res=>res.json).then(res=>console.log(res))
+        }).then(res=>res.json()).then(res=>console.log(res))
     }
 
     function DeletePost(){
@@ -44,7 +47,7 @@ export default function ReadPost({isAdmin}){
         );
         else{
             return(
-                <Button onClick={likePost} variant="primary">Like Post</Button>
+                <Button onClick={likePost} variant="primary" className='ps-4 pe-4 mb-2'>Like</Button>
             );
         }
     }
@@ -55,11 +58,10 @@ export default function ReadPost({isAdmin}){
                 <h1>{post.title}</h1>
                 <DeletePost/>
             </div>
-            <p>{post.tags}</p>
-            <div className='post-img' >
-                <img src={POST_API+'/photo/'+post.photoName} width='100%' height='100%' ></img> 
+           <div className='post-img mb-5' >
+                <img src={POST_API+'/photo/'+post.photoName} alt=' ' width='100%' height='100%' ></img> 
             </div>
-            <p>{post.message}</p>
+            <div style={{whiteSpace:'pre-line'}}>{post.message}</div>
         </Container>
     );
 }

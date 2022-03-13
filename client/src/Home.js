@@ -4,6 +4,7 @@ import {Container} from 'react-bootstrap'
 import { LandingImageSlider } from "./components/LandingImageSlider";
 import PopularPost from "./components/PopularPost";
 import RecentPost from "./components/RecentPost";
+import NavigationBar from "./components/NavigationBar";
 
 export default function Home({isAdmin}){
 
@@ -32,9 +33,12 @@ export default function Home({isAdmin}){
     console.log('[+]All post',post)
     return(
         <div>
+            <Container>
+                <NavigationBar/>
+            </Container>
             <LandingImageSlider/>
             <Container >
-                <PopularPost posts={popPost}/>
+                <PopularPost id={'#poppost'} posts={popPost}/>
                 <RecentPost posts={post}/>
             </Container>
             
