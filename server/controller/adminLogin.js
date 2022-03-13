@@ -2,20 +2,33 @@ import adminModel from "../model/admin.js";
 import JWT from 'jsonwebtoken'
 
 export function login(req,res){
-    adminModel.findOne({name:req.body.name},(err,data)=>{
-        if(err||!data){
-            return res.status(400).json({msg:'credential not true'})
+
+    adminModel.find().exec((err,data)=>{
+        const admin=new adminModel()
+        console.log('[+]admin data',data)
+        if(!data.length){
+            admin.save();
+            return res.json({msg:'New Admin created'})
         }
         else{
-            if(data.name==req.body.name&& data.password==req.body.password){
-                console.log('[+]admin login success')
-                const token=JWT.sign({_id:data._id},process.env.SECRET_KEY,{expiresIn:'1h'});
-                res.cookie('token',token);
-                return res.json({msg:"Admin login success",token})
-            }
+            adminModel.findOne({name:req.body.name},(err,data)=>{
+                if(err||!data){
+                    return res.status(400).json({msg:'credential not true'})
+                }
+                else{
+                    if(data.name==req.body.name&& data.password==req.body.password){
+                        console.log('[+]admin login success')
+                        const token=JWT.sign({_id:data._id},process.env.SECRET_KEY,{expiresIn:'1h'});
+                        res.cookie('token',token);
+                        return res.json({msg:"Admin login success",token})
+                    }
+                }
+                res.status(400).json({msg:'credentials does not match'})
+            })
         }
-        res.status(400).json({msg:'credentials does not match'})
     })
+
+   
     
 }
 

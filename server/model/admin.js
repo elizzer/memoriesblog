@@ -7,7 +7,7 @@ const adminSchema=mongoose.Schema({
     },
     password:{
         type:String,
-        dafault:'admin',
+        default:'admin',
     }
 });
 
