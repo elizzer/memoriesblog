@@ -43,7 +43,7 @@ export default function ReadPost({isAdmin}){
     function DeletePost(){
         if(isAdmin)
         return(
-            <Button onClick={deletePost} variant="danger">Delete Post</Button>
+            <Button onClick={deletePost} className='ps-4 pe-4 mb-2' variant="danger">Delete Post</Button>
         );
         else{
             return(

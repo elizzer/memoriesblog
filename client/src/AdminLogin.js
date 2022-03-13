@@ -3,7 +3,7 @@ import { ADMIN_API, POST_API } from "./API";
 import {useNavigate} from 'react-router-dom';
 import { Button,Container,Form,Card } from "react-bootstrap";
 
-export default function AdminLogin(){
+export default function AdminLogin({setIsAdmin}){
 
     const navigate = useNavigate();
 
@@ -29,6 +29,7 @@ export default function AdminLogin(){
                 navigate('/create');
             }
         })
+        setIsAdmin(true)
     }
 
     function toHome(){

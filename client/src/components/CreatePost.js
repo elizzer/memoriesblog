@@ -77,10 +77,9 @@ export default function CreatePost(){
                     <Button onClick={toHome} >Go to home</Button>
                 </Modal.Footer>
             </Modal>
-            <h1>Create post</h1>
            
-            <Container>
-
+            <Container className="mt-3">
+                <h1 className="text-center">Create post</h1>
             <Form>
                 <Form.Group className="mb-3" controlId="title">
                     <Form.Label>Title</Form.Label>

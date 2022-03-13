@@ -3,7 +3,7 @@ import { Navbar,Container,Nav,Form,FormControl,Button } from "react-bootstrap";
 export default function NavigationBar(){
     return(
         <Navbar bg="light" expand="lg">
-            <Container fluid>
+            <Container fluid >
                 <Navbar.Brand href="#">MAYYA</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -12,7 +12,7 @@ export default function NavigationBar(){
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
-                    <Nav.Link href="#action1">Home</Nav.Link>
+                    <Nav.Link href="/">Home</Nav.Link>
                     <Nav.Link href="#poppost">PopularPost</Nav.Link>
                     <Nav.Link href="#action2">All Post</Nav.Link>
                     

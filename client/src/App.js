@@ -35,8 +35,8 @@ function App() {
     <BrowserRouter>
             
       <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/admin' element={<AdminLogin/>}/>
+        <Route path='/' element={<Home isAdmin={isAdmin} setIsAdmin={setIsAdmin} />}/>
+        <Route path='/admin' element={<AdminLogin setIsAdmin={setIsAdmin}/>} />
         <Route path='/create' element={<AdminAuth/>}/>
         <Route path='/post/:postId' element={<ReadPost isAdmin={isAdmin}/>}/>
       </Routes>
