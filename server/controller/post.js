@@ -10,10 +10,7 @@ export function createPost(req,res){
     console.log('[+]Log from createpost',req.photoName)
     var post =new postModal(req.body);
     post.photoName=photoName;
-    var tags= req.body.tags;
-    tags=tags.split('#');
-    tags=tags.slice(1,tags.length);
-    post.tags=tags;
+    
     post.save((err,post)=>{
         if(err||!post){
            return res.status(400).json({err:'unable to save the post'})

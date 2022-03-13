@@ -10,7 +10,6 @@ export default function CreatePost(){
     const [postData,setPostData]=useState({
         title:'',
         message:'',
-        tags:'',
         photo:null
     })
 
@@ -36,7 +35,6 @@ export default function CreatePost(){
         const form = new FormData();
         form.append('title',postData.title);
         form.append('message',postData.message);
-        form.append('tags',postData.tags);
         form.append('photo',postData.photo);
 
         fetch(`${POST_API}`,{
@@ -54,7 +52,6 @@ export default function CreatePost(){
         setPostData({
             title:'',
             message:'',
-            tags:'',
             photo:null
         })
 
@@ -86,10 +83,7 @@ export default function CreatePost(){
                     <Form.Control type="text" name='title' onChange={changeHandler} placeholder="title" value={postData.title} placeholder="Title for the post" />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="tags">
-                    <Form.Label>Tags</Form.Label>
-                    <Form.Control type="text" name='tags' onChange={changeHandler} placeholder="tags" value={postData.tags} placeholder="tags" />
-                </Form.Group>
+              
                 <Form.Group className="mb-3" controlId="tags">
                     <Form.Label>Message</Form.Label>
                     <Form.Control name='message' onChange={changeHandler} placeholder="message" value={postData.message} as='textarea' rows='10' placeholder="Give you message about the blog" />
