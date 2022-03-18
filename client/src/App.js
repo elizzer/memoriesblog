@@ -3,6 +3,7 @@ import AdminLogin from './AdminLogin';
 import Home from './Home';
 import AdminAuth from './adminauth';
 import ReadPost from './components/ReadPost';
+import {UserRegister} from './components/UserRegister'
 import { Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
@@ -38,6 +39,7 @@ function App() {
         <Route path='/' element={<Home isAdmin={isAdmin} setIsAdmin={setIsAdmin} />}/>
         <Route path='/admin' element={<AdminLogin setIsAdmin={setIsAdmin}/>} />
         <Route path='/create' element={<AdminAuth/>}/>
+        <Route path='/register' element={<UserRegister/>}/>
         <Route path='/post/:postId' element={<ReadPost isAdmin={isAdmin}/>}/>
       </Routes>
     </BrowserRouter>

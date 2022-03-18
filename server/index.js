@@ -7,6 +7,7 @@ import cors from 'cors';
 //routes
 import postRoutes from './routes/posts.js';
 import adminRoutes from './routes/admin.js';
+import userRoutes from './routes/user.js';
 
 dotenv.config();
 
@@ -16,7 +17,8 @@ app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
 app.use(cors())
 app.use('/post',postRoutes);
-app.use('/admin',adminRoutes)
+app.use('/admin',adminRoutes);
+app.use('/user',userRoutes);
 
 
 
