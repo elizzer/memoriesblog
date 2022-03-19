@@ -3,10 +3,11 @@ import {Button,Container} from 'react-bootstrap';
 import {USER_API} from '../API.js';
 
 
+
 export function UserRegister(){
     
     const [userDet,setUserDet]=useState({
-        name:'',
+        userName:'',
         email:'',
         password:'',
     });
@@ -36,11 +37,11 @@ export function UserRegister(){
             <Container style={{width:"25%"}}>
                 <h1 className="text-center" >User Register</h1>
                 <form  className="d-flex flex-column">
-                    <input type={'text'} className='mt-2' name='name' placeholder='UserName'
+                    <input type={'text'} className='mt-2' name='userName' placeholder='UserName' value={userDet.userName}
                     onChange={changeHandler} />
-                    <input type={'email'} className='mt-2'  name='email' placeholder='Email' 
+                    <input type={'email'} className='mt-2'  name='email' placeholder='Email' value={userDet.email}
                      onChange={changeHandler}/>
-                    <input type={'password'} className='mt-2'  name='password' placeholder='Password'
+                    <input type={'password'} className='mt-2'  name='password' placeholder='Password' value={userDet.password}
                     onChange={changeHandler} />
                     <Button className='mt-2' variant="outline-primary" onClick={formSubmit}>Submit</Button>
                 </form>

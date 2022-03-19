@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import mongoose from "mongoose";
-import uuid from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 
 const UserSchema = mongoose.Schema({
     userName:{
@@ -18,8 +18,14 @@ const UserSchema = mongoose.Schema({
     about:{
         type:String
     },
-    posts:[mongoose.Schema.ObjectId],
-    likedPosts:[mongoose.Schema.ObjectId],
+    posts:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'posts'
+    }],
+    likedPosts:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'posts'
+    }],
     salt:{
         type:String,
     },
@@ -32,25 +38,25 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.virtual('password').set(function(password){
     this._password=password;
-    this.salt=uuid.v1();
+    this.salt=uuidv4();
     this.hashedPassword=this.encrytPassword(password)
 })
 .get(function(){
     return this._password;
 })
 
-UserSchema.methods={
-
-    encrytPassword:function(password){
-        if(!password) return '';
-        try{
-            return crypto.createHmac('sha1',this.salt).update(password).digest('hex');
-        }
-        catch(err){
-            return '';
-        }
+UserSchema.methods.encrytPassword=function(password){
+    if(!password){
+        return '';
+    }
+    try{
+        return crypto.createHmac('sha1',this.salt).update(password).digest('hex')
+    }
+    catch(err){
+        return '';
     }
 }
+
 const User = mongoose.model('user',UserSchema);
 
 export default User;
