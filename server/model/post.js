@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const postSchema = mongoose.Schema({
     title:{
@@ -8,19 +8,21 @@ const postSchema = mongoose.Schema({
     message:{
         type:String,
     },
-
-    likeCount:{
-        type:Number,
-        default:0,
-    },
- 
+    likedBy:[{
+        type:mongoose.Schema.ObjectId,
+        ref:'users'
+    }],
+    comments:[String],
     photoName:{
         type:String,
-    }
-
+    },
+    tags:{
+        type:String
+    },
+     
     
 
 },{ timestamps: true });
 
 const postModel= mongoose.model('post',postSchema);
-export default postModel;
+module.exports=postModel

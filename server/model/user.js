@@ -1,19 +1,22 @@
-import crypto from 'crypto';
-import mongoose from "mongoose";
-import { v4 as uuidv4 } from 'uuid';
+const crypto = require('crypto');
+const mongoose = require("mongoose");
+const uuid = require('uuid');
 
 const UserSchema = mongoose.Schema({
     userName:{
         type:String,
-        unique:true,
-        required:true,
+        unique:[true,'Enter a unique username'],
+        required:[true, "Enter a userName"],
         trim:true,
         maxlength:32
     },
     email:{
         type:String,
+        trim:true,
         unique:true,
-        required:true
+        required:[true, "Enter a Email"],
+        lowercase:true,
+        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
     about:{
         type:String
@@ -38,7 +41,7 @@ const UserSchema = mongoose.Schema({
 
 UserSchema.virtual('password').set(function(password){
     this._password=password;
-    this.salt=uuidv4();
+    this.salt=uuid.v4();
     this.hashedPassword=this.encrytPassword(password)
 })
 .get(function(){
@@ -57,6 +60,8 @@ UserSchema.methods.encrytPassword=function(password){
     }
 }
 
-const User = mongoose.model('user',UserSchema);
+UserSchema.methods.authenticate=function(password){
+     return this.encrytPassword(password)===this.hashedPassword;
+}
 
-export default User;
+module.exports=mongoose.model('user',UserSchema);

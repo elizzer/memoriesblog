@@ -1,8 +1,8 @@
-import express from 'express';
+const express = require('express');
 const router =express.Router();
-import {createPost,upload, getAllPost,byPhotoName,getPopularPost,byPostId,deletePost,postById,like} from '../controller/post.js';
+const {createPost,upload, getAllPost,byPhotoName,getPopularPost,byPostId,deletePost,postById,like} = require('../controller/post.js');
 
-import {dirName} from '../uploads/dir.js'
+const {dirName} = require('../uploads/dir.js')
 
 
 router.get('/',getAllPost)
@@ -25,4 +25,4 @@ router.get('/photo/:photoName',(req,res)=>{
 router.param("photoName",byPhotoName);
 router.param('postId',byPostId);
 
-export default router;
+module.exports=router;

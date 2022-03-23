@@ -1,11 +1,11 @@
-import postModal from '../model/post.js';
-import multer from 'multer';
-import path from 'path';
-import {v4} from 'uuid';
+const postModal = require('../model/post.js');
+const multer = require('multer');
+const path = require('path');
+const {v4} = require('uuid');
 
 var photoName;
 
-export function createPost(req,res){
+exports.createPost=(req,res)=>{
 
     console.log('[+]Log from createpost',req.photoName)
     var post =new postModal(req.body);
@@ -23,7 +23,7 @@ export function createPost(req,res){
 
 
 
-export function createPhotoLocation(){
+exports.createPhotoLocation=()=>{
     photoName=v4()+'-'+Date.now()+'.png';
     return photoName;
 }
@@ -48,20 +48,20 @@ const fileFilter = (req, file, cb) => {
     }
   };
 
- export const upload = multer ({
+  exports.upload = multer ({
     storage: storageEngine,
     fileFilter  
   });
 
 
 
-export function getAllPost(req,res){
+  exports.getAllPost=(req,res)=>{
     postModal.find((err,data)=>{
         res.json(data);
     })
 }
 
-export function byPhotoName(req,res,next,photoName){
+exports.byPhotoName=(req,res,next,photoName)=>{
 
     req.photoName=photoName;
     console.log('[+]log from photo request',req.photoName)
@@ -70,7 +70,7 @@ export function byPhotoName(req,res,next,photoName){
 }
 
 
-export function getPopularPost(req,res){
+exports.getPopularPost=(req,res)=>{
     postModal.find().sort([['likeCount','desc']]).limit(4).exec((err,data)=>{
         if(err||!data){
             return res.json({error:"No post fetched"})
@@ -80,7 +80,7 @@ export function getPopularPost(req,res){
     })
 }
 
-export function byPostId(req,res,next,id){
+exports. byPostId=(req,res,next,id)=>{
     postModal.findById(id).exec((err,data)=>{
         if(err||!data)
             return res.json({msg:"Post not found"});
@@ -91,12 +91,12 @@ export function byPostId(req,res,next,id){
     })
 }
 
-export function postById(req,res){
+exports.postById=(req,res)=>{
         console.log('[+]parameter data',req.post)
         res.json(req.post);
 }
 
-export function deletePost(req,res){
+exports.deletePost=(req,res)=>{
     postModal.deleteOne({_id:req.post.id},(err,data)=>{
         if(err||!data){
             return res.json({err:"post not found"})
@@ -105,7 +105,7 @@ export function deletePost(req,res){
     })
 }
 
-export function like(req,res){
+exports.like=(req,res)=>{
     postModal.findByIdAndUpdate(req.post._id,{likeCount:req.post.likeCount+1},{new:true},(err,data)=>{
         if(err||!data){
             return res.json({err:'cant like this post'})

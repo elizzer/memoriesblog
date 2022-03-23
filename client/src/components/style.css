@@ -27,3 +27,13 @@
 .c-p{
     cursor: pointer;
 }
+
+.bor{
+    border:5px solid grey;
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+.user-form{
+    width:25% !important;
+}
