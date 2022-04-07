@@ -13,12 +13,8 @@ const postSchema = mongoose.Schema({
         ref:'users'
     }],
     comments:[String],
-    photoName:{
-        type:String,
-    },
-    tags:{
-        type:String
-    },
+    photoName:[String],
+    tags:[String]
      
     
 

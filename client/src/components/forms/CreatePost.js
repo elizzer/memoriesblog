@@ -3,7 +3,7 @@ import {POST_API} from '../../API';
 import {Modal,Button,Form,Container} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
-export default function CreatePost(){
+export default function CreatePost({isLogin}){
     
    const navigate= useNavigate()
   
@@ -37,7 +37,7 @@ export default function CreatePost(){
         form.append('message',postData.message);
         form.append('photo',postData.photo);
 
-        fetch(`${POST_API}`,{
+        fetch(`${POST_API}/${isLogin.id}`,{
             method:"POST",
             headers:{
                 Accept:'Application/json'
@@ -65,6 +65,9 @@ export default function CreatePost(){
         navigate('/')
     }
 
+    if(!isLogin){
+        navigate('/signin');
+    }
     return(
         <div>
             <Modal show={save.show} onHide={modalClosehandler} centered >

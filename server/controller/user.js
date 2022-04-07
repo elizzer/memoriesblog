@@ -70,3 +70,15 @@ exports.userAuth=(req,res)=>{
         })
     })
 }
+
+exports.byUserId=(req,res,next,id)=>{
+    
+    User.findById(id,(err,user)=>{
+        if(err||!user){
+            return res.json({code:0,err:"User not found"})
+        }
+        req.user=user
+        next()
+    })
+
+}

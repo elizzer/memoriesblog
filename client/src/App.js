@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react';
 import {USER_API} from './API.js'
 import Signin from './components/forms/Signin'
 import CreatePost from './components/forms/CreatePost';
+import Profile from './components/pages/Profile';
+import { UserLoginAuth } from './components/UserLoginAuth';
 
 
 function App() {
@@ -43,7 +45,7 @@ function App() {
       }
     })
   },[])
- 
+
   return (
     <BrowserRouter>
             
@@ -51,11 +53,13 @@ function App() {
         <Route path='/' element={<Home isLogin={isLogin} setIsLogin={setIsLogin} />}/>
         <Route path='/register' element={<UserRegister/>}/>
         <Route path='/signin' element={<Signin setIsLogin={setIsLogin}/>}/>
-        <Route path='/create' element={<CreatePost/>}/>
-        {/* <Route path='/post/:postId' element={<ReadPost isAdmin={isAdmin}/>}/> */}
+        <Route path='/create' element={<CreatePost isLogin={isLogin}/>}/>
+        <Route path='/profile' element={<UserLoginAuth isLogin={isLogin} to="profile"/>}/>
+        <Route path='/post/:postId' element={<ReadPost />}/>
       </Routes>
     </BrowserRouter>
   );
+ 
 }
 
 export default App;

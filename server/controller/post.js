@@ -3,59 +3,42 @@ const multer = require('multer');
 const path = require('path');
 const {v4} = require('uuid');
 
-var photoName;
 
 exports.createPost=(req,res)=>{
 
     console.log('[+]Log from createpost',req.photoName)
     var post =new postModal(req.body);
-    post.photoName=photoName;
+    post.photoName=req.photoName;
     
     post.save((err,post)=>{
         if(err||!post){
            return res.status(400).json({err:'unable to save the post'})
         }
-        
+        console.log('[+]Post created by',req.user)
+        req.user.posts.push(post._id);
+        req.user.save();
         res.json({code:1,msg:"post Saved and published successfully"});
 
     })
 }
 
 
-
-exports.createPhotoLocation=()=>{
-    photoName=v4()+'-'+Date.now()+'.png';
-    return photoName;
-}
-
 const storageEngine = multer.diskStorage({
     destination:'./uploads',
     filename:function (req,file,cb){
         cb(
         null,
-        createPhotoLocation()
+        req.photoName
       )
     }
 })
 
-const fileFilter = (req, file, cb) => {
-    const fileTypes=['image/jpeg','image/jpg','image/png'];
-    if(fileTypes.includes(file.mimetype)){
-        cb(null,true)
-    }
-    else{
-        cb(null,false)
-    }
-  };
 
-  exports.upload = multer ({
-    storage: storageEngine,
-    fileFilter  
-  });
+exports.upload = multer ({storage: storageEngine});
 
 
 
-  exports.getAllPost=(req,res)=>{
+exports.getAllPost=(req,res)=>{
     postModal.find((err,data)=>{
         res.json(data);
     })
@@ -112,4 +95,9 @@ exports.like=(req,res)=>{
         }
         res.json({msg:'updated'})
     })
+}
+
+exports.userPosts=(req,res)=>{
+    console.log('[+]User post request')
+   return  res.json({code:1,posts:req.user.posts})
 }

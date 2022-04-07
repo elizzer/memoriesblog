@@ -30,7 +30,6 @@ export default function Home({isLogin,setIsLogin}){
                 return res;
             });
         })
-
     },[])
 
     function Logout(){
