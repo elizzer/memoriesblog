@@ -1,13 +1,15 @@
-
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-require('dotenv').config();
-const cors = require('cors')
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
 //routes
-const postRoutes = require('./routes/posts')
-const userRoutes = require('./routes/user')
+import postRoutes from './routes/posts.js';
+import adminRoutes from './routes/admin.js';
+import userRoutes from './routes/user.js';
+
+dotenv.config();
 
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(bodyParser.json({limit:"30mb",extended:true}));
 app.use(bodyParser.urlencoded({limit:"30mb",extended:true}));
 app.use(cors())
 app.use('/post',postRoutes);
+app.use('/admin',adminRoutes);
 app.use('/user',userRoutes);
 
 

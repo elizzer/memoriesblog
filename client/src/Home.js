@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
-import {Button, Container} from 'react-bootstrap'
-
-
 import { POST_API } from "./API";
+import {Button, Container} from 'react-bootstrap'
+import { LandingImageSlider } from "./components/LandingImageSlider";
 import PopularPost from "./components/PopularPost";
 import RecentPost from "./components/RecentPost";
 import NavigationBar from "./components/NavigationBar";
 import Footer from './components/Footer.js'
 import { useNavigate } from "react-router-dom";
 
-export default function Home({isLogin,setIsLogin}){
+export default function Home({isAdmin,setIsAdmin}){
 
     const navigate=useNavigate();
     const [post, setPost]=useState([]);
@@ -32,47 +31,28 @@ export default function Home({isLogin,setIsLogin}){
         })
     },[])
 
-    function Logout(){
+    function adminLogout(){
         localStorage.removeItem('token');
-        setIsLogin({
-            flag:false,
-            id:"",
-            userName:""
-        })
-       
+        setIsAdmin(false);
     }
     
     function toCreate(){
         navigate('/create');
     }
-    
-    function toRegister(){
-        navigate('/register');
-    }
 
-    function toSignin(){
-        navigate('/signin');
-    }
-
-  
-
-    function Login(){
-        if(isLogin.flag){
-                    return (
-                        <div className="d-flex justify-content-center m-2">
-                            <Button onClick={Logout}  variant="outline-dark">Logout</Button>
-                            <Button onClick={toCreate} className={'ms-2'} variant="outline-dark">CreatePost </Button>
-                        </div>
-                        
-                    );
+    function Logout(){
+        if(isAdmin){
+            return (
+                <div className="d-flex justify-content-center">
+                    <Button onClick={adminLogout}  variant="outline-dark">Admin Logout</Button>
+                    <Button onClick={toCreate} className={'ms-2'} variant="outline-dark">CreatePost </Button>
+                </div>
+                
+            );
         }
-
-        return(
-            <div className="d-flex justify-content-center m-2">
-                <Button onClick={toRegister}>Register</Button>
-                <Button className="ms-2" onClick={toSignin}>Signin</Button>
-            </div>
-        );
+        else{
+            return null;
+        }
     }
 
     console.log('[+]All post',post)
@@ -80,8 +60,9 @@ export default function Home({isLogin,setIsLogin}){
         <div>
             <Container fluid className="d-flex justify-content-evenly">
                 <NavigationBar/>
-                <Login/>
+                <Logout/>
             </Container>
+            <LandingImageSlider/>
             <Container >
                 <PopularPost  posts={popPost}/>
                 <RecentPost posts={post}/>

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
     title:{
@@ -8,6 +8,7 @@ const postSchema = mongoose.Schema({
     message:{
         type:String,
     },
+<<<<<<< HEAD
     likedBy:[{
         type:mongoose.Schema.ObjectId,
         ref:'users'
@@ -16,9 +17,21 @@ const postSchema = mongoose.Schema({
     photoName:[String],
     tags:[String]
      
+=======
+
+    likeCount:{
+        type:Number,
+        default:0,
+    },
+ 
+    photoName:{
+        type:String,
+    }
+
+>>>>>>> parent of ed73868 (user registration and signing completed)
     
 
 },{ timestamps: true });
 
 const postModel= mongoose.model('post',postSchema);
-module.exports=postModel
+export default postModel;

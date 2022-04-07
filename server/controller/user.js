@@ -1,39 +1,26 @@
-const User = require("../model/user.js");
-const JWT = require('jsonwebtoken')
+import User from "../model/user.js";
 
-exports.register=(req,res)=>{
+export function register(req,res){
     const newUser=new User(req.body)
-    if(!req.body.userName){
-        return res.json({code:0,err:"Username is required"})
-    }
-    if(!req.body.email){
-        return res.json({code:0,err:"email is required"})
-    }
-    if(!req.body.password){
-        return res.json({code:0,err:"password is required"})
-    }
     newUser.save((err,data)=>{
         if(err||!data)
-        {   
-            console.log(err.message)
-            var field=err.message.split(' ')[11];
-            var error=err.message.split(' ')[0];
+        {
+               const field=err.message.split(' ')[11];
+            const error=err.message.split(' ')[0];
+            console.log(error,' @ ',field);
             if(error==='E11000')
             {
-                return res.json({code:0,err:`The ${field} already exists`})
-                
-            }
-            error=err.message.split(':')[2].split(',')[0];
-            console.log('[+]Error from mongoose',err.message.split(':')[2].split(',')[0])
-            return res.json({code:0,err:error})
+                return res.json({err:`The ${field} already exists`})
 
-       }
+            }
+        }
         else{
             console.log('[+]User registered succesfully')
-            res.status(200).json({code:1,msg:"User registration success"})
+            res.status(200).json({code:1})
         }
     });
     
+<<<<<<< HEAD
 }
 
 exports.signIn=(req,res)=>{
@@ -81,4 +68,6 @@ exports.byUserId=(req,res,next,id)=>{
         next()
     })
 
+=======
+>>>>>>> parent of ed73868 (user registration and signing completed)
 }
