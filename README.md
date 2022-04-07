@@ -26,8 +26,3 @@ so just submitting a garbage form would create a admin data in the database
 
 after that your admin login credentials is 'admin','admin', untill you manually change the credentials in the database.
 
-
-
-there are lot of features yet to be added to improve the user exprences like the navigation bar is non functional, there is no recommendation system for the user, no subscribtion from the user to the admin.
-
-
